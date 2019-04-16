@@ -1,5 +1,5 @@
 // Initial array of gifs
-var gifs = ["Cat", "Dog", "Pand", "Snake", "Tiger", "Rhino", "Eagle", "Buffalo", "Chicken", "Duck", "Cow", "Goat", "Frog", "Raccoon", "Rooster", "Elephant", "Zebra", "Sheep", "Turtle", "Vulture", "Butterfly", "Horse", "Dragon", "Unicorn", "Pegasus", "Dinosaur"];
+var gifs = ["Cat", "Dog", "Panda", "Snake", "Tiger", "Rhino", "Eagle", "Buffalo", "Chicken", "Duck", "Cow", "Goat", "Frog", "Raccoon", "Rooster", "Elephant", "Zebra", "Sheep", "Turtle", "Vulture", "Butterfly", "Horse", "Dragon", "Unicorn", "Pegasus", "Dinosaur"];
 console.log(gifs);
 
 // displayGifInfo function re-renders the HTML to display the appropriate content
@@ -20,13 +20,19 @@ function displayGifInfo() {
         console.log(response.data);
 
         for (i = 0; i < 10; i++) {
-            // Storing the gif url
-            var gifURL = response.data[i].images.fixed_height.url;
-            console.log(gifURL);
+            // Storing the gif URL
+            var gifURL = response.data[i].images.fixed_height_still.url;
+            // Storing the gif still url
+            var gifURLStill = response.data[i].images.fixed_height_still.url;
+            console.log(gifURLStill);
+            // Storing the gif animate url
+            var gifURLAnimate = response.data[i].images.fixed_height.url;
+            // Storign the gif state url
+            var gifURLState = "still";
             // Storing the gif rating
             var gifRating = response.data[i].rating;
             // Creating elements to have the url
-            var gifIMG = $("<img>").attr('src', gifURL).attr('alt', 'gif image');
+            var gifIMG = $("<img>").attr('src', gifURL).attr('data-still', gifURLStill).attr('data-animate', gifURLAnimate).attr('data-state', gifURLState).attr('alt', 'gif image').addClass('gif');
             console.log(gifIMG)
             // Creating elements to have the rating
             var pOne = $("<p>").text("Rating: " + gifRating);
@@ -77,12 +83,21 @@ $("#addGif").on("click", function (event) {
     renderButtons();
 });
 
-// $('#gifInput').addEventListener("keyup", function(event) {
-//     if (event.keyCode === 13) {
-//      event.preventDefault();
-//      document.getElementById("addGif").click();
-//     }
-//   });
+$(".gif").on("click", function() {
+    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    var state = $(this).attr("data-state");
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    // Then, set the image's data-state to animate
+    // Else set src to the data-still value
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      console.log(this);
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+  });
 
 // Adding a click event listener to all elements with a class of "movie-btn"
 $(document).on("click", ".gif-btn", displayGifInfo);
