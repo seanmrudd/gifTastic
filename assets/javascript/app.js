@@ -6,7 +6,7 @@ console.log(gifs);
 function displayGifInfo() {
 
     var gif = $(this).attr("data-name");
-    var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=mgRF3Dxyrnw1EnUNgCAuxD1i0DxsKnrs&q=' + gif + '&limit=10&offset=0lang=en';
+    var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=mgRF3Dxyrnw1EnUNgCAuxD1i0DxsKnrs&q=' + gif + '&limit=10&offset=0&lang=en';
 
     // Creating an AJAX call for the specific gif button being clicked
     $.ajax({
@@ -16,7 +16,7 @@ function displayGifInfo() {
         console.log(response);
 
         // Creating a div to hold the gif
-        var gifDiv = $("<div class='gif'>");
+        var gifDiv = $("<div class='gif-div'>");
         console.log(response.data);
 
         for (i = 0; i < 10; i++) {
@@ -33,12 +33,12 @@ function displayGifInfo() {
             var gifURLState = "still";
             // Storing the gif rating
             var gifRating = response.data[i].rating;
-            // Creating elements to have the url
-            var gifIMG = $("<img>").attr('src', gifURL).attr('data-still', gifURLStill).attr('data-animate', gifURLAnimate).attr('data-state', gifURLState).attr('alt', 'gif image').attr('id', 'gif').css('clear', 'both');
-            console.log(gifIMG)
             // Creating elements to have the rating
-            var pOne = $("<span>").text("Rating: " + gifRating).css('clear', 'both');
-            // Displaying the rating, release year, and plot
+            var pOne = $("<p>").text("Rating: " + gifRating).attr('id', 'rating');
+            // Creating elements to have the url
+            var gifIMG = $("<img>").attr('src', gifURL).attr('data-still', gifURLStill).attr('data-animate', gifURLAnimate).attr('data-state', gifURLState).attr('alt', 'gif image').attr('id', 'gif');
+            console.log(gifIMG)
+            // Displaying the rating and gif
             gifDiv.append(pOne);
             gifDiv.append(gifIMG);
         }
@@ -83,7 +83,8 @@ $("#addGif").on("click", function (event) {
     renderButtons();
 });
 
-$("#gif").on("click", function () {
+//Ne this $(Document) because the images aren't set up yet.  They're dynamically added.
+$(Document).on("click", '#gif', function () {
     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
     var state = $(this).attr("data-state");
     console.log(this);
@@ -91,14 +92,14 @@ $("#gif").on("click", function () {
     // Then, set the image's data-state to animate
     // Else set src to the data-still value
     if (state === "still") {
-      $(this).attr("src", $(this).attr("data-animate"));
-      console.log(this);
-      $(this).attr("data-state", "animate");
+        $(this).attr("src", $(this).attr("data-animate"));
+        console.log(this);
+        $(this).attr("data-state", "animate");
     } else if (state === "animate") {
-      $(this).attr("src", $(this).attr("data-still"));
-      $(this).attr("data-state", "still");
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
     }
-  });
+});
 
 // Adding a click event listener to all elements with a class of "gif-btn"
 $(document).on("click", ".gif-btn", displayGifInfo);
