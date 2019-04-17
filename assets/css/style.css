@@ -1,5 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
 img {
     margin: 10px;
+    float: left;
 }
 
 button {
@@ -10,4 +15,8 @@ button {
 
 #buttons-view {
     margin-bottom: 20px;
+}
+
+span {
+    float: left;
 }
