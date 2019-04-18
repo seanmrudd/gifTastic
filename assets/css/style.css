@@ -15,3 +15,11 @@ button {
 #buttons-view {
     margin-bottom: 20px;
 }
+
+#gifs-view {
+    display: inline;
+}
+
+.gif-div {
+    float: left;
+}

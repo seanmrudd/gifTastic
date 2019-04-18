@@ -15,11 +15,12 @@ function displayGifInfo() {
     }).then(function (response) {
         console.log(response);
 
-        // Creating a div to hold the gif
-        var gifDiv = $("<div class='gif-div'>");
-        console.log(response.data);
+
 
         for (i = 0; i < 10; i++) {
+            // Creating a div to hold the gif
+            var gifDiv = $("<div class='gif-div'>");
+            console.log(response.data);
             // Storing the gif URL
             var gifURL = response.data[i].images.fixed_height_still.url;
             console.log(gifURL);
@@ -31,19 +32,22 @@ function displayGifInfo() {
             console.log(gifURLAnimate);
             // Storign the gif state url
             var gifURLState = "still";
+            // Creating elements to have the url
+            var gifIMG = $("<img>").attr('src', gifURL).attr('data-still', gifURLStill).attr('data-animate', gifURLAnimate).attr('data-state', gifURLState).attr('alt', 'gif image').attr('id', 'gif');
+            console.log(gifIMG)
+
             // Storing the gif rating
             var gifRating = response.data[i].rating;
             // Creating elements to have the rating
             var pOne = $("<p>").text("Rating: " + gifRating).attr('id', 'rating');
-            // Creating elements to have the url
-            var gifIMG = $("<img>").attr('src', gifURL).attr('data-still', gifURLStill).attr('data-animate', gifURLAnimate).attr('data-state', gifURLState).attr('alt', 'gif image').attr('id', 'gif');
-            console.log(gifIMG)
+
             // Displaying the rating and gif
             gifDiv.append(pOne);
             gifDiv.append(gifIMG);
+
+            // Putting the entire gif above the previous gifs
+            $("#gifs-view").prepend(gifDiv);
         }
-        // Putting the entire gif above the previous gifs
-        $("#gifs-view").prepend(gifDiv);
     })
 }
 
