@@ -2,14 +2,19 @@
     box-sizing: border-box;
 }
 
-img {
-    margin: 10px;
+body{
+    text-align: center;
 }
 
 button {
     margin-right: 7px;
     margin-bottom: 7px;
-    font-size: 30px;
+}
+
+.gif-btn{
+    font-size: 25px;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Righteous', cursive;
 }
 
 #buttons-view {
@@ -18,8 +23,20 @@ button {
 
 #gifs-view {
     display: inline;
+    text-align: center;
 }
 
 .gif-div {
     float: left;
+    margin: 10px;
+}
+
+p {
+    font-weight: bolder;
+}
+
+.jumbotron {
+    background-image: radial-gradient(rgb(23,162,184), white);
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Righteous', cursive;
 }

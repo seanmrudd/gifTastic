@@ -39,7 +39,7 @@ function displayGifInfo() {
             // Storing the gif rating
             var gifRating = response.data[i].rating;
             // Creating elements to have the rating
-            var pOne = $("<p>").text("Rating: " + gifRating).attr('id', 'rating');
+            var pOne = $("<p>").text("Rating: " + gifRating.toUpperCase()).attr('id', 'rating');
 
             // Displaying the rating and gif
             gifDiv.append(pOne);
@@ -74,7 +74,7 @@ function renderButtons() {
     }
 }
 
-// This function handles events where a gif button is clicked
+// This function handles events where a gif button is added from text field
 $("#addGif").on("click", function (event) {
     event.preventDefault();
     // This line grabs the input from the textbox
