@@ -77,6 +77,8 @@ function renderButtons() {
 // This function handles events where a gif button is added from text field
 $("#addGif").on("click", function (event) {
     event.preventDefault();
+    // Prevents not entering nothing and creating an empty button
+    if ($("#gifInput").val() != ''){
     // This line grabs the input from the textbox
     var gif = $("#gifInput").val().trim();
     // Adding gif from the textbox to our array
@@ -85,6 +87,7 @@ $("#addGif").on("click", function (event) {
     $("#gifInput").val('');
     // Calling renderButtons which handles the processing of our gif array
     renderButtons();
+    }
 });
 
 //Ne this $(Document) because the images aren't set up yet.  They're dynamically added.
